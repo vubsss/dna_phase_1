@@ -120,8 +120,8 @@ CREATE TABLE PUNISHMENT_ASSIGNED (
     Punishment_Action ENUM('greed', 'envy', 'pride', 'lust', 'sloth', 'gluttony', 'wrath') NOT NULL,
     Deed_ID INT NOT NULL,
     Duration INT NOT NULL,
-    Status ENUM('Pending', 'In Progress', 'Completed', 'Pardoned') NOT NULL DEFAULT 'Pending',
-    Supervisor INT DEFAULT 2,
+    Status ENUM('Pending', 'In Progress', 'Completed') NOT NULL DEFAULT 'Pending',
+    Supervisor INT DEFAULT 1,
     PRIMARY KEY (Soul_ID, Punishment_ID, Punishment_Action, Deed_ID),
     CONSTRAINT fk_punishment_assigned_soul FOREIGN KEY (Soul_ID) 
         REFERENCES SOULS(ID) 
