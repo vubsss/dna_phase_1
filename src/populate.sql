@@ -40,9 +40,9 @@ INSERT INTO SOULS (ID, F_Name, M_Name, L_Name, Residence, Date_of_Completion, Ca
 -- Hell examples
 ('S200','Bridle',NULL,'Gallop','Hell','1975-10-09',4),
 ('S201','Ilya',NULL,'Drake','Hell','1980-09-08',6),
+('S300','Slime',NULL,'Blob','Hell','2001-09-11',2),
 
 -- Earth (currently incarnated)
-('S300','Priya','S.','Menon','Earth', NULL, 5),
 ('S301','Ravi',NULL,'Kumar','Earth', NULL, 5),
 ('S302','Sana',NULL,'Gomez','Earth', NULL, 1),
 ('S303','Hector',NULL,'Ho','Earth', NULL, 5),
@@ -67,8 +67,6 @@ VALUES
  '2 Rooftop','Kochi','Kerala','India'),
 ('S300','1992-09-25','Slime',NULL,'Blob',6,'1993-11-30',
  'Mud Alley','Kannur','Kerala','India'),
-('S300', '1994-04-14','Priya',NULL,'Menon',2,NULL,
- '5 Palm St','Trivandrum','Kerala','India'),
 
 -- S301: Cat → Dog → Horse → Human  (steady rise)
 ('S301','1975-03-05','Whiskers',NULL,'Paw',1,'1981-10-10',
@@ -178,7 +176,7 @@ INSERT INTO DEEDS (Deed_ID, Soul_ID, Description, Status, Timestamp, Date, Score
 (15,'S303','Saved a village from flood',      'Good',   '11:11:00', '2018-07-07', 180, 'Krishna Colony', 'Madurai'),
 
 -- S304 deeds
-(16,'S304','Scared birds away',               'Neutral','12:12:00', '1971-08-08', 0, 'Cliff', 'Dallas'),
+(16,'S304','Scared eagles away to save smaller birds',               'Good','12:12:00', '1971-08-08', 0, 'Cliff', 'Dallas'),
 
 -- Nirvana large deeds (ensure >500)
 (100,'N1','Millennia-long meditation benefiting many','Good','00:00:00','1900-01-01',600,NULL,NULL),
