@@ -29,7 +29,7 @@ INSERT INTO CARETAKER (ID, Name, Class, Manager_ID) VALUES
 -- =========================
 INSERT INTO SOULS (ID, F_Name, M_Name, L_Name, Residence, Date_of_Completion, Caretaker_ID) VALUES
 -- Nirvana / Divine
-('N0','dombu','oombu','Divine','Nirvana', NULL, NULL),
+('N0','dombu','gabe','itch','Nirvana', NULL, NULL),
 ('N1','Asha','M.','Harjani','Nirvana', NULL, 1),
 ('N2','Bhav','R.','Patel','Nirvana', NULL, 1),
 
@@ -87,15 +87,15 @@ VALUES
  '10 Ocean View','Manila','Metro Manila','Philippines'),
 
 -- S100: Cat → Human → Human (virtuous → Heaven)
-('S100','1930-04-01','OldTom',NULL,'Feline',1,'2021-05-12',
+('S100','1930-04-01','OldTom',NULL,'Feline',1,'1950-05-05',
  'Old Cat Rd','Kolkata','West Bengal','India'),
-('S100','1955-09-10','Leela',NULL,'Roy',2,'2021-05-12',
+('S100','1955-09-10','Leela',NULL,'Roy',2,'1975-12-12',
  '7 Park Ave','Chennai','Tamil Nadu','India'),
 ('S100','1978-11-30','Leela',NULL,'Roy',2,'2021-05-12',
  '7 Park Ave','Mumbai','Maharashtra','India'),
 
 -- S101: Cat → Human (mildly good → Heaven)
-('S101','1945-02-02','Moggy',NULL,'Tail',1,'2019-11-01',
+('S101','1945-02-02','Moggy',NULL,'Tail',1,'1965-05-16',
  'Pet Lane','Singapore','Singapore','Singapore'),
 ('S101','1965-06-06','Thomas',NULL,'Ng',2,'2019-11-01',
  '12 Hope Rd','London','London','UK'),
@@ -113,7 +113,7 @@ VALUES
 -- S201: Cat → Bacteria → Bacteria (downward → Hell)
 ('S201','1940-12-12','Tiny',NULL,'Whisk',1,'1960-01-01',
  'Backstreet','Nashik','Maharashtra','India'),
-('S201','1962-04-04','Ilya',NULL,'Drake',6,'1970-01-01',
+('S201','1962-04-04','Ilya',NULL,'Drake',6,'1970-06-01',
  'Lab','Nagpur','Maharashtra','India'),
 ('S201','1980-09-09','Ilya',NULL,'Drake',6,'1981-03-01',
  'Lab2','Pune','Maharashtra','India'),
@@ -144,39 +144,39 @@ DELETE FROM DEEDS;
 INSERT INTO DEEDS (Deed_ID, Soul_ID, Description, Status, Timestamp, Date, Score, Street, City) VALUES
 -- S300 deeds (mostly negative)
 (1, 'S300', 'Scavenged food selfishly',       'Bad',    '10:00:00', '1986-03-01', -20, 'Mud Alley', 'Thiruvananthapuram'),
-(2, 'S300', 'Spread pest spores',             'Bad',    '08:00:00', '1993-05-05', -50, 'Sewer', 'Thiruvananthapuram'),
+(2, 'S300', 'Spread dangerous viruses',             'Bad',    '08:00:00', '1993-05-05', -50, 'Sewer', 'Kochi'),
 
 -- S301 deeds (improvement)
 (3, 'S301', 'Played with neighbourhood dogs', 'Good',   '09:00:00', '1983-04-01', 10, '7 Kennel Rd', 'Bengaluru'),
-(4, 'S301', 'Saved a child from a well',      'Good',   '16:30:00', '1999-09-01', 100, 'Riverbank', 'Bengaluru'),
-(5, 'S301', 'Donated to shelter',             'Good',   '12:00:00', '2001-02-02', 40, NULL, NULL),
+(4, 'S301', 'Saved a child from a well',      'Good',   '16:30:00', '2019-09-01', 100, 'Riverbank', 'Mangalore'),
+(5, 'S301', 'Donated to shelter',             'Good',   '12:00:00', '2021-02-02', 40, NULL, NULL),
 
 -- S302 deeds
-(6, 'S302', 'Helped marine rescue',           'Good',   '07:45:00', '2003-11-11', 30, '10 Ocean View', 'Manila'),
-(7, 'S302', 'Illegally fished',               'Bad',    '05:30:00', '2004-08-18', -12, '10 Ocean View', 'Manila'),
+(6, 'S302', 'Helped marine rescue',           'Good',   '07:45:00', '2022-11-11', 30, '10 Ocean View', 'Manila'),
+(7, 'S302', 'Illegally fished',               'Bad',    '05:30:00', '2024-08-18', -12, '10 Ocean View', 'Manila'),
 
 -- S100 deeds (virtuous)
-(8, 'S100', 'Lifelong charity',               'Good',   '10:00:00', '1960-06-06', 200, '7 Park Ave', 'Kolkata'),
-(9, 'S100', 'Trained many healers',           'Good',   '09:00:00', '1979-09-09', 150, '7 Park Ave', 'Kolkata'),
+(8, 'S100', 'Lifelong charity',               'Good',   '10:00:00', '1960-06-06', 200, '7 Park Ave', 'Chennai'),
+(9, 'S100', 'Trained many healers',           'Good',   '09:00:00', '1999-09-09', 150, '7 Park Ave', 'Mumbai'),
 
 -- S101 deeds
-(10,'S101','Ran free clinic',                 'Good',   '10:00:00', '1966-04-04', 120, '12 Hope Rd', 'Singapore'),
+(10,'S101','Ran free clinic',                 'Good',   '10:00:00', '1996-04-04', 120, '12 Hope Rd', 'London'),
 
 -- S200 deeds (mixed)
-(11,'S200','Horse theft ring leader',         'Bad',    '23:00:00', '1976-12-12', -40, '18 Ash St', 'Varanasi'),
-(12,'S200','Rescued foals in flood',          'Good',   '06:00:00', '1990-10-10', 60, 'Stables', 'Varanasi'),
+(11,'S200','Kicked a child in the face',         'Bad',    '23:00:00', '1976-12-12', -40, '18 Ash St', 'Lucknow'),
+(12,'S200','Rescued foals in flood',          'Good',   '06:00:00', '1990-10-10', 60, 'Stables', 'Lucknow'),
 
 -- S201 deeds (bad)
-(13,'S201','Toxic experiment release',        'Bad',    '02:00:00', '1970-01-01', -100, 'Lab', 'SomeCity'),
+(13,'S201','Toxic experiment release',        'Bad',    '02:00:00', '1970-02-01', -100, 'Lab', 'Nagpur'),
 
 -- S302 further deeds
-(14,'S302','Volunteered at cleanup',          'Good',   '08:00:00', '2010-05-05', 20, '10 Ocean View', 'Manila'),
+(14,'S302','Helped some friends',          'Good',   '08:00:00', '1979-05-05', 20, '10 Ocean View', 'Manila'),
 
 -- S303 deeds
-(15,'S303','Saved a village from flood',      'Good',   '11:11:00', '2000-07-07', 180, 'Town', 'CityA'),
+(15,'S303','Saved a village from flood',      'Good',   '11:11:00', '2018-07-07', 180, 'Krishna Colony', 'Madurai'),
 
 -- S304 deeds
-(16,'S304','Scared birds away',               'Neutral','12:12:00', '1976-08-08', 0, 'Cliff', 'CityB'),
+(16,'S304','Scared birds away',               'Neutral','12:12:00', '1971-08-08', 0, 'Cliff', 'Dallas'),
 
 -- Nirvana large deeds (ensure >500)
 (100,'N1','Millennia-long meditation benefiting many','Good','00:00:00','1900-01-01',600,NULL,NULL),
