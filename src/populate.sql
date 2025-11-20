@@ -145,11 +145,11 @@ VALUES
 DELETE FROM DEEDS;
 INSERT INTO DEEDS (Deed_ID, Soul_ID, Description, Status, Timestamp, Date, Score, Street, City) VALUES
 -- S300 deeds (mostly negative)
-(1, 'S300', 'Scavenged food selfishly',       'Bad',    '10:00:00', '1986-03-01', -20, 'Mud Alley', 'Thiruvananthapuram'),
-(2, 'S300', 'Spread dangerous viruses',             'Bad',    '08:00:00', '1993-05-05', -50, 'Sewer', 'Kochi'),
+(1, 'S300', 'Scavenged food selfishly',       'Bad',    '10:00:00', '1989-03-01', -20, 'Mud Alley', 'Kochi'),
+(2, 'S300', 'Spread dangerous viruses',             'Bad',    '08:00:00', '1993-05-05', -50, 'Sewer', 'Kannur'),
 
 -- S301 deeds (improvement)
-(3, 'S301', 'Played with neighbourhood dogs', 'Good',   '09:00:00', '1983-04-01', 10, '7 Kennel Rd', 'Bengaluru'),
+(3, 'S301', 'Played with neighbourhood dogs', 'Good',   '09:00:00', '1983-04-01', 10, '7 Kennel Rd', 'Hubli'),
 (4, 'S301', 'Saved a child from a well',      'Good',   '16:30:00', '2019-09-01', 100, 'Riverbank', 'Mangalore'),
 (5, 'S301', 'Donated to shelter',             'Good',   '12:00:00', '2021-02-02', 40, NULL, NULL),
 
@@ -172,7 +172,7 @@ INSERT INTO DEEDS (Deed_ID, Soul_ID, Description, Status, Timestamp, Date, Score
 (13,'S201','Toxic experiment release',        'Bad',    '02:00:00', '1970-02-01', -100, 'Lab', 'Nagpur'),
 
 -- S302 further deeds
-(14,'S302','Helped some friends',          'Good',   '08:00:00', '1979-05-05', 20, '10 Ocean View', 'Manila'),
+(14,'S302','Helped some friends',          'Good',   '08:00:00', '1994-05-05', 20, '10 Ocean View', 'Manila'),
 
 -- S303 deeds
 (15,'S303','Saved a village from flood',      'Good',   '11:11:00', '2018-07-07', 180, 'Krishna Colony', 'Madurai'),
@@ -200,7 +200,7 @@ INSERT INTO DEED_ACTION_TYPE (Deed_ID, Soul_ID, Action_Type) VALUES
 (8,'S100','pride'),
 (9,'S100','pride'),
 (10,'S101','pride'),
-(11,'S200','greed'),
+(11,'S200','wrath'),
 (12,'S200','sloth'),
 (13,'S201','greed'),
 (14,'S302','sloth'),
