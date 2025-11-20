@@ -61,27 +61,27 @@ INSERT INTO LIVES_ON_EARTH
 VALUES
 
 -- S300: Cat → Pigeon → Bacteria  (falling path)
-('S300','1978-01-01','Mittens',NULL,'Catson',1,NULL,
+('S300','1978-01-01','Mittens',NULL,'Catson',1,'1984-12-08',
  '12 Cat Lane','Thiruvananthapuram','Kerala','India'),
-('S300','1985-06-10','Peck',NULL,'Feather',5,NULL,
- '2 Rooftop','Thiruvananthapuram','Kerala','India'),
-('S300','1992-09-25','Slime',NULL,'Blob',6,NULL,
- 'Mud Alley','Thiruvananthapuram','Kerala','India'),
+('S300','1985-06-10','Peck',NULL,'Feather',5,'1991-07-15',
+ '2 Rooftop','Kochi','Kerala','India'),
+('S300','1992-09-25','Slime',NULL,'Blob',6,'1993-11-30',
+ 'Mud Alley','Kannur','Kerala','India'),
 
 -- S301: Cat → Dog → Horse → Human  (steady rise)
-('S301','1975-03-05','Whiskers',NULL,'Paw',1,NULL,
+('S301','1975-03-05','Whiskers',NULL,'Paw',1,'1981-10-10',
  '4 Alley','Bengaluru','Karnataka','India'),
-('S301','1982-11-12','Buddy',NULL,'Rover',4,NULL,
- '7 Kennel Rd','Bengaluru','Karnataka','India'),
-('S301','1990-02-20','Storm',NULL,'Hoof',3,NULL,
- '9 Meadow','Bengaluru','Karnataka','India'),
+('S301','1982-11-12','Buddy',NULL,'Rover',4,'1989-01-15',
+ '7 Kennel Rd','Hubli','Karnataka','India'),
+('S301','1990-02-20','Storm',NULL,'Hoof',3,'1998-05-25',
+ '9 Meadow','Udupi','Karnataka','India'),
 ('S301','1999-08-01','Ravi',NULL,'Kumar',2,NULL,
- '3 Gandhi Rd','Bengaluru','Karnataka','India'),
+ '3 Gandhi Rd','Mangalore','Karnataka','India'),
 
 -- S302: Cat → Dog → Human  (good progression)
-('S302','1989-05-15','Pip',NULL,'Purr',1,NULL,
+('S302','1989-05-15','Pip',NULL,'Purr',1,'1995-06-20',
  '1 Whisker Ave','Manila','Metro Manila','Philippines'),
-('S302','1996-07-07','Fido',NULL,'Bark',4,NULL,
+('S302','1996-07-07','Fido',NULL,'Bark',4,'2002-08-30',
  '2 Doggo St','Manila','Metro Manila','Philippines'),
 ('S302','2003-12-12','Sana',NULL,'Gomez',2,NULL,
  '10 Ocean View','Manila','Metro Manila','Philippines'),
@@ -90,49 +90,49 @@ VALUES
 ('S100','1930-04-01','OldTom',NULL,'Feline',1,'2021-05-12',
  'Old Cat Rd','Kolkata','West Bengal','India'),
 ('S100','1955-09-10','Leela',NULL,'Roy',2,'2021-05-12',
- '7 Park Ave','Kolkata','West Bengal','India'),
+ '7 Park Ave','Chennai','Tamil Nadu','India'),
 ('S100','1978-11-30','Leela',NULL,'Roy',2,'2021-05-12',
- '7 Park Ave','Kolkata','West Bengal','India'),
+ '7 Park Ave','Mumbai','Maharashtra','India'),
 
 -- S101: Cat → Human (mildly good → Heaven)
 ('S101','1945-02-02','Moggy',NULL,'Tail',1,'2019-11-01',
  'Pet Lane','Singapore','Singapore','Singapore'),
 ('S101','1965-06-06','Thomas',NULL,'Ng',2,'2019-11-01',
- '12 Hope Rd','Singapore','Singapore','Singapore'),
+ '12 Hope Rd','London','London','UK'),
 
 -- S200: Cat → Horse → Horse → Pigeon (rise then decline)
-('S200','1938-03-03','Stray',NULL,'Mews',1,'2018-03-20',
+('S200','1938-03-03','Stray',NULL,'Mews',1,'1958-08-06',
  'Ancient Street','Varanasi','Uttar Pradesh','India'),
-('S200','1958-08-08','Bridle',NULL,'Gallop',3,'2018-03-20',
- 'Stables','Varanasi','Uttar Pradesh','India'),
-('S200','1975-10-10','Brutus',NULL,'Karn',3,'2018-03-20',
- '18 Ash St','Varanasi','Uttar Pradesh','India'),
-('S200','1998-01-01','Crow',NULL,'Caw',5,'2018-03-20',
- 'Rooftop','Varanasi','Uttar Pradesh','India'),
+('S200','1958-08-08','Bridle',NULL,'Gallop',3,'1974-09-09',
+ 'Stables','Agra','Uttar Pradesh','India'),
+('S200','1975-10-10','Brutus',NULL,'Karn',3,'1995-12-12',
+ '18 Ash St','Lucknow','Uttar Pradesh','India'),
+('S200','1998-01-01','Kookoo',NULL,'Caw',5,'2018-03-20',
+ 'Rooftop','Mathura','Uttar Pradesh','India'),
 
 -- S201: Cat → Bacteria → Bacteria (downward → Hell)
-('S201','1940-12-12','Tiny',NULL,'Whisk',1,'2020-08-15',
- 'Backstreet','SomeCity','SomeState','SomeCountry'),
-('S201','1962-04-04','Ilya',NULL,'Drake',6,'2020-08-15',
- 'Lab','SomeCity','SomeState','SomeCountry'),
-('S201','1980-09-09','Ilya',NULL,'Drake',6,'2020-08-15',
- 'Lab2','SomeCity','SomeState','SomeCountry'),
+('S201','1940-12-12','Tiny',NULL,'Whisk',1,'1960-01-01',
+ 'Backstreet','Nashik','Maharashtra','India'),
+('S201','1962-04-04','Ilya',NULL,'Drake',6,'1970-01-01',
+ 'Lab','Nagpur','Maharashtra','India'),
+('S201','1980-09-09','Ilya',NULL,'Drake',6,'1981-03-01',
+ 'Lab2','Pune','Maharashtra','India'),
 
 -- S303: Cat → Horse → Human (good rise)
-('S303','1982-01-01','Mog',NULL,'Purr',1,NULL,
- 'Alley','CityA','StateA','CountryA'),
-('S303','1990-06-06','Dash',NULL,'Hoof',3,NULL,
- 'Farm','CityA','StateA','CountryA'),
+('S303','1982-01-01','Mog',NULL,'Purr',1,'1989-02-02',
+ 'Alley','Chennai','Tamil Nadu','India'),
+('S303','1990-06-06','Dash',NULL,'Hoof',3,'1997-07-07',
+ 'Farm','Mahabalipuram','Tamil Nadu','India'),
 ('S303','1998-03-03','Hector',NULL,'Ho',2,NULL,
- 'Town','CityA','StateA','CountryA'),
+ 'Town','Madurai','Tamil Nadu','India'),
 
 -- S304: Cat → Pigeon → Human (chaotic but ends positive)
-('S304','1955-05-05','Mews',NULL,'Kit',1,NULL,
- 'OldRoad','CityB','StateB','CountryB'),
-('S304','1965-06-06','Twitch',NULL,'Wing',5,NULL,
- 'Cliff','CityB','StateB','CountryB'),
+('S304','1955-05-05','Mews',NULL,'Kit',1,'1963-06-06',
+ 'OldRoad','Albuquerque','New Mexico','USA'),
+('S304','1965-06-06','Twitch',NULL,'Wing',5,'1973-05-05',
+ 'Cliff','Dallas','Texas','USA'),
 ('S304','1975-07-07','Olda',NULL,'Fe',2,NULL,
- 'Block','CityB','StateB','CountryB');
+ 'Block','Houston','Texas','USA');
        -- Human (200) cumulative 170
 
 -- =========================
