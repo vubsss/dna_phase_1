@@ -266,8 +266,14 @@ def query_location_negative_deed_percentage(conn):
         print(f"{'City':30s} | Total | Negative | % Negative")
         print("-" * 70)
         for r in rows:
-            city = r['City'] or '(Unknown)'
-            print(f"{city:30s} | {r['Total_Deeds']:5d} | {r['Negative_Deed_Count']:8d} | {float(r['Negative_Deed_Percentage'] or 0):8.2f}%")
+            city = r['City']
+            if city is None:
+                city = "(Unknown)"
+            city = str(city)
+            total = int(r['Total_Deeds'])
+            neg = int(r['Negative_Deed_Count'])
+            perc = float(r['Negative_Deed_Percentage'] or 0)
+            print(f"{city:30s} | {total:5d} | {neg:8d} | {perc:8.2f}%")
     except pymysql.Error as e:
         print(f"Error running query: {e}")
 
@@ -496,6 +502,11 @@ def main_cli(conn):
                 break
             else:
                 print("Invalid choice. Please try again.")
+            
+            quits = input("Press Enter to continue, or 'q' to quit: ").strip().lower()
+            if quits == 'q':
+                print("Exiting application...")
+                break
     finally:
         if conn:
             conn.close()
