@@ -1,15 +1,13 @@
 -- Phase 4: Database Implementation
-
-DROP DATABASE IF EXISTS mini_world_db;
-CREATE DATABASE mini_world_db;
-USE mini_world_db;
+CREATE DATABASE IF NOT EXISTS afterlife_db;
+USE afterlife_db;
 
 -- Table: SPECIES
 -- Stores different species that can have souls
 CREATE TABLE SPECIES (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR(100) NOT NULL UNIQUE,
-    Soul_Score INT NOT NULL,
+    Soul_Score INT NOT NULL
 );
 
 -- Table: CARETAKER
@@ -32,16 +30,17 @@ CREATE TABLE SOULS (
     F_Name VARCHAR(100) NOT NULL,
     M_Name VARCHAR(100),
     L_Name VARCHAR(100) NOT NULL,
-    Residence ENUM('Hell', 'Heaven', 'Earth') NOT NULL DEFAULT 'Earth',
+    Residence ENUM('Hell', 'Heaven', 'Earth', 'Nirvana') NOT NULL DEFAULT 'Earth',
     Date_of_Completion DATE DEFAULT NULL,
-    Caretaker_ID INT DEFAULT 1,
+    Caretaker_ID INT,
     CONSTRAINT fk_souls_caretaker FOREIGN KEY (Caretaker_ID) 
         REFERENCES CARETAKER(ID) 
-        ON DELETE SET DEFAULT
+        ON DELETE SET NULL
         ON UPDATE CASCADE,
     CONSTRAINT chk_completion_date CHECK (
         (Residence = 'Earth' AND Date_of_Completion IS NULL) OR
-        (Residence IN ('Hell', 'Heaven') AND Date_of_Completion IS NOT NULL)
+        (Residence IN ('Hell', 'Heaven') AND Date_of_Completion IS NOT NULL) OR
+        (Residence = 'Nirvana' AND Date_of_Completion IS NULL)
     )
 );
 
@@ -74,7 +73,7 @@ CREATE TABLE LIVES_ON_EARTH (
 -- Table: DEEDS
 -- Stores deeds performed by souls
 CREATE TABLE DEEDS (
-    Deed_ID INT AUTO_INCREMENT,
+    Deed_ID INT,
     Soul_ID VARCHAR(51) NOT NULL,
     Description TEXT NOT NULL,
     Status ENUM('Good', 'Bad', 'Neutral') NOT NULL,
