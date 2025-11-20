@@ -192,22 +192,9 @@ DELETE FROM DEED_ACTION_TYPE;
 INSERT INTO DEED_ACTION_TYPE (Deed_ID, Soul_ID, Action_Type) VALUES
 (1,'S300','greed'),
 (2,'S300','gluttony'),
-(3,'S301','envy'),
-(4,'S301','wrath'),
-(5,'S301','greed'),
-(6,'S302','envy'),
 (7,'S302','gluttony'),
-(8,'S100','pride'),
-(9,'S100','pride'),
-(10,'S101','pride'),
 (11,'S200','wrath'),
-(12,'S200','sloth'),
 (13,'S201','greed'),
-(14,'S302','sloth'),
-(15,'S303','wrath'),
-(16,'S304','sloth'),
-(100,'N1','pride'),
-(101,'N2','envy');
 
 -- =========================
 -- PUNISHMENTS
@@ -227,4 +214,4 @@ INSERT INTO PUNISHMENT_ASSIGNED (Soul_ID, Punishment_ID, Punishment_Action, Deed
 ('S200',6,'wrath',11,1200,'In Progress',4),
 ('S201',1,'greed',13,2400,'In Progress',6),
 ('S300',5,'gluttony',2,365,'Pending',2),
-('S302',5,'gluttony',7,180,'Pending',1);
+('S302',5,'gluttony',7,180,'Pending',5);
