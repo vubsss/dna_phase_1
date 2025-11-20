@@ -13,7 +13,7 @@ Implements:
     1) Location Analysis: Negative Deed Percentage (by City)
     2) Caretaker Workload Evaluation (Max Workload)
     3) Caretaker Fairness: Harshness Index
-    4) Species Behavior Analysis
+    4) Soul Score and Life Score of a Soul
     5) Unresolved Punishments Audit (maps 'Active' -> 'In Progress')
 """
 import sys
@@ -65,11 +65,32 @@ def insert_new_soul(conn):
     INSERT INTO SOULS (ID, F_Name, M_Name, L_Name, Residence, Date_of_Completion, Caretaker_ID)
     VALUES (%s, %s, %s, %s, %s, %s, %s)
     """
+
     try:
         with conn.cursor() as cur:
             cur.execute(sql, (sid, fname, mname, lname, residence, doc, caretaker_id))
         conn.commit()
         print(f"Inserted soul {sid}")
+        if residence == 'Earth':
+            q = input("Would like to make an entry in LIVES_ON_EARTH? (y/n): ").strip().lower()
+            if q == 'y':
+                species_id_input = 1
+                dob_input = input("Date_of_Birth (YYYY-MM-DD) [default (now)]: ").strip() or datetime.now().strftime("%Y-%m-%d")
+                street = input("Birth Street [default (Unknown)]: ").strip() or "(Unknown)"
+                city = input("Birth City [default (Unknown)]: ").strip() or "(Unknown)"
+                country = input("Birth Country [default (Unknown)]: ").strip() or "(Unknown)"
+                try:
+                    species_id = int(species_id_input)
+                    sql_loe = "INSERT INTO LIVES_ON_EARTH (Soul_ID, Species_ID, DOB, F_Name, M_Name, L_Name, Birth_street, Birth_city, Birth_country) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                    with conn.cursor() as cur:
+                        cur.execute(sql_loe, (sid, species_id, dob_input, fname, mname, lname, street, city, country))
+                    conn.commit()
+                    print(f"Inserted LIVES_ON_EARTH entry for soul {sid} with species {species_id}")
+                except ValueError:
+                    print("Invalid Species_ID; skipping LIVES_ON_EARTH insertion.")
+                except pymysql.Error as e:
+                    conn.rollback()
+                    print(f"Error inserting into LIVES_ON_EARTH: {e}")
     except pymysql.Error as e:
         conn.rollback()
         print(f"Error inserting soul: {e}")
@@ -83,6 +104,7 @@ def insert_deed(conn):
     """
     print("\n--- Insert Deed ---")
     soul_id = input("Soul ID (must exist): ").strip()
+    deed_id = input("Deed ID (must exist): ").strip()
     description = input("Description: ").strip()
     status = input("Status (Good/Bad/Neutral): ").strip()
     time_str = input("Time (HH:MM:SS) [default now]: ").strip() or datetime.now().strftime("%H:%M:%S")
@@ -97,18 +119,40 @@ def insert_deed(conn):
     city = input("City (optional): ").strip() or None
 
     sql = """
-    INSERT INTO DEEDS (Soul_ID, Description, Status, Timestamp, Date, Score, Street, City)
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+    INSERT INTO DEEDS (Deed_ID, Soul_ID, Description, Status, Timestamp, Date, Score, Street, City)
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
     """
     try:
         with conn.cursor() as cur:
-            cur.execute(sql, (soul_id, description, status, time_str, date_str, score, street, city))
+            cur.execute(sql, (deed_id, soul_id, description, status, time_str, date_str, score, street, city))
         conn.commit()
         # fetch last insert id for convenience
         with conn.cursor() as cur:
             cur.execute("SELECT LAST_INSERT_ID() AS last_id")
             last = cur.fetchone()
         print(f"Inserted deed (Deed_ID={last['last_id']}) for soul {soul_id}")
+        # Ask if user wants to add action types
+        q_action = input("Would you like to add action types for this deed? (y/n): ").strip().lower()
+        if q_action == 'y':
+            print("Available action types: gluttony, wrath, envy, greed, pride, lust, sloth")
+            action_types_input = input("Enter action types (comma-separated): ").strip()
+            if action_types_input:
+                action_types = [at.strip().lower() for at in action_types_input.split(',')]
+                valid_actions = {'gluttony', 'wrath', 'envy', 'greed', 'pride', 'lust', 'sloth'}
+                
+                for action_type in action_types:
+                    if action_type in valid_actions:
+                        sql_action = "INSERT INTO DEED_ACTION_TYPE (Deed_ID, Soul_ID, Action_Type) VALUES (%s, %s, %s)"
+                        try:
+                            with conn.cursor() as cur:
+                                cur.execute(sql_action, (deed_id, soul_id, action_type))
+                            conn.commit()
+                            print(f"Added action type '{action_type}' for deed {deed_id}")
+                        except pymysql.Error as e:
+                            conn.rollback()
+                            print(f"Error inserting action type '{action_type}': {e}")
+                    else:
+                        print(f"Invalid action type '{action_type}' - skipping")
     except pymysql.Error as e:
         conn.rollback()
         print(f"Error inserting deed: {e}")
@@ -123,16 +167,46 @@ def update_soul_id(conn):
     old_id = input("Existing Soul ID (to change): ").strip()
     new_id = input("New Soul ID: ").strip()
 
-    sql = "UPDATE SOULS SET ID = %s WHERE ID = %s"
     try:
+        # First check if old_id exists
+        with conn.cursor() as cur:
+            cur.execute("SELECT COUNT(*) as count FROM SOULS WHERE ID = %s", (old_id,))
+            if cur.fetchone()['count'] == 0:
+                print("Old ID not found.")
+                return
+
+        # Count affected rows in dependent tables before update
+        affected_counts = {}
+        dependent_tables = [
+            ("DEEDS", "Soul_ID"),
+            ("PUNISHMENT_ASSIGNED", "Soul_ID"),
+            ("LIVES_ON_EARTH", "Soul_ID"),
+            ("DEED_ACTION_TYPE", "Soul_ID")
+        ]
+        
+        for table, column in dependent_tables:
+            with conn.cursor() as cur:
+                cur.execute(f"SELECT COUNT(*) as count FROM {table} WHERE {column} = %s", (old_id,))
+                affected_counts[table] = cur.fetchone()['count']
+
+        # Update the soul ID
+        sql = "UPDATE SOULS SET ID = %s WHERE ID = %s"
         with conn.cursor() as cur:
             cur.execute(sql, (new_id, old_id))
-        affected = cur.rowcount
+        souls_affected = cur.rowcount
         conn.commit()
-        if affected:
-            print(f"Updated soul ID: {old_id} -> {new_id} (affected rows in SOULS: {affected})")
+        
+        if souls_affected:
+            print(f"Updated soul ID: {old_id} -> {new_id}")
+            print(f"Rows affected in SOULS: {souls_affected}")
+            
+            # Show affected rows in dependent tables
+            for table, count in affected_counts.items():
+                if count > 0:
+                    print(f"Rows affected in {table}: {count}")
         else:
             print("No rows updated (old ID not found).")
+            
     except pymysql.Error as e:
         conn.rollback()
         print(f"Error updating soul ID: {e}")
@@ -147,6 +221,21 @@ def update_punishment_status(conn):
     punishment_id_input = input("Punishment_ID (int): ").strip()
     deed_id_input = input("Deed_ID (int): ").strip()
     action = input("Punishment_Action (greed/envy/pride/lust/sloth/gluttony/wrath): ").strip()
+    sql1 = """SELECT Status FROM PUNISHMENT_ASSIGNED
+    WHERE Soul_ID = %s AND Punishment_ID = %s AND Punishment_Action = %s AND Deed_ID = %s LIMIT 1"""
+    try:
+        with conn.cursor() as cur:
+            cur.execute(sql1, (soul_id, punishment_id, action, deed_id))
+            current_status = cur.fetchone()
+            if current_status:
+                print(f"Current Status: {current_status['Status']}")
+            else:
+                print("No matching punishment assignment found.")
+                return
+    except pymysql.Error as e:
+        print(f"Error fetching current status: {e}")
+        return
+
     new_status = input("New Status (Pending/In Progress/Completed/Pardoned): ").strip()
 
     try:
@@ -177,17 +266,41 @@ def update_punishment_status(conn):
 
 def update_residence_of_souls(conn):
     """
-    Update residence of SOULS: set Residence = 'Hell' WHERE Residence = 'Earth'
-    (user requested that operation)
+    Update residence of SOULS: change residence for a specific soul
     """
-    print("\n--- Update Residence: Earth -> Hell ---")
-    sql = "UPDATE SOULS SET Residence = %s WHERE Residence = %s"
+    print("\n--- Update Soul Residence ---")
+    soul_id = input("Soul ID: ").strip()
+    
+    # First, show current residence
     try:
         with conn.cursor() as cur:
-            cur.execute(sql, ('Hell', 'Earth'))
+            cur.execute("SELECT Residence FROM SOULS WHERE ID = %s", (soul_id,))
+            result = cur.fetchone()
+        
+        if not result:
+            print(f"Soul ID '{soul_id}' not found.")
+            return
+            
+        current_residence = result['Residence']
+        print(f"Current residence: {current_residence}")
+        
+    except pymysql.Error as e:
+        print(f"Error fetching current residence: {e}")
+        return
+    
+    new_residence = input("New residence (Hell/Heaven/Earth/Nirvana): ").strip()
+    doc = input("Date of Completion (YYYY-MM-DD) or blank: ").strip() or None
+    
+    sql = "UPDATE SOULS SET Residence = %s, Date_of_Completion = %s WHERE ID = %s"
+    try:
+        with conn.cursor() as cur:
+            cur.execute(sql, (new_residence, doc, soul_id))
         affected = cur.rowcount
         conn.commit()
-        print(f"Updated residence from 'Earth' to 'Hell' for {affected} rows.")
+        if affected:
+            print(f"Updated residence from '{current_residence}' to '{new_residence}' for soul {soul_id}.")
+        else:
+            print("No rows updated.")
     except pymysql.Error as e:
         conn.rollback()
         print(f"Error updating residence: {e}")
@@ -366,41 +479,57 @@ def query_harshness_index(conn):
         print(f"Error running query: {e}")
 
 
-def query_species_behavior(conn):
+def query_soul_score(conn):
     """
-    Species Behavior Analysis - average deed score by species
+    Prompt for a soul_id and print:
+      - Soul Score: sum of ALL deed scores for that soul (across all lives)
+      - Life Score: sum of deed scores that fall within life intervals recorded in LIVES_ON_EARTH
     """
-    print("\n--- Species Behavior Analysis ---")
-    sql = """
-    SELECT 
-        SP.Name AS Species_Name,
-        COUNT(D.Deed_ID) AS Total_Deeds_Recorded,
-        AVG(D.Score) AS Average_Deed_Score
-    FROM 
-        SPECIES SP
-    JOIN 
-        LIVES_ON_EARTH L ON SP.ID = L.Species_ID
-    JOIN 
-        DEEDS D ON L.Soul_ID = D.Soul_ID
-    GROUP BY 
-        SP.Name
-    ORDER BY 
-        Average_Deed_Score ASC
-    LIMIT 200
-    """
+    soul_id = input("Enter Soul ID (e.g. S301): ").strip()
+    if not soul_id:
+        print("No Soul ID provided.")
+        return
+
+    # Verify soul exists
     try:
         with conn.cursor() as cur:
-            cur.execute(sql)
-            rows = cur.fetchall()
-        if not rows:
-            print("No species-deed linkage data found.")
-            return
-        print(f"{'Species':15s} {'Total Deeds':12s} {'Avg Deed Score':14s}")
-        print("-" * 45)
-        for r in rows:
-            print(f"{r['Species_Name'][:15]:15s} {r['Total_Deeds_Recorded']:12d} {float(r['Average_Deed_Score'] or 0):14.2f}")
+            cur.execute("SELECT 1 FROM SOULS WHERE ID = %s LIMIT 1", (soul_id,))
+            exists = cur.fetchone()
+            if not exists:
+                print(f"No soul found with ID '{soul_id}'.")
+                return
+
+            # Compute scores using parameterized queries (pass soul_id twice)
+            sql = """
+            SELECT
+                COALESCE((
+                    SELECT SUM(D.Score)
+                    FROM DEEDS D
+                    WHERE D.Soul_ID = %s
+                ), 0) AS Soul_Score,
+
+                COALESCE((
+                    SELECT SUM(D2.Score)
+                    FROM DEEDS D2
+                    JOIN LIVES_ON_EARTH L2 ON L2.Soul_ID = D2.Soul_ID
+                    WHERE L2.Soul_ID = %s
+                      AND D2.Date BETWEEN L2.DOB AND COALESCE(L2.DOD, CURDATE())
+                ), 0) AS Life_Score
+            """
+            cur.execute(sql, (soul_id, soul_id))
+            row = cur.fetchone()
+
+        # Safe extraction / formatting
+        soul_score = int(row['Soul_Score'] or 0)
+        life_score = int(row['Life_Score'] or 0)
+
+        print("\n--- Soul Score Summary ---")
+        print(f"{'Soul ID':12s} {'Soul_Score':12s} {'Life_Score':12s}")
+        print("-" * 40)
+        print(f"{soul_id:12s} {soul_score:12d} {life_score:12d}")
+
     except pymysql.Error as e:
-        print(f"Error running query: {e}")
+        print(f"Error querying soul scores: {e}")
 
 
 def query_unresolved_punishments(conn):
@@ -468,7 +597,7 @@ def main_cli(conn):
             print("7: Location Analysis: Negative Deed Percentage (by City)")
             print("8: Caretaker Workload Evaluation (Max Workload)")
             print("9: Caretaker Fairness: Harshness Index")
-            print("10: Species Behavior Analysis")
+            print("10: Soul Score and Life Score of a Soul")
             print("11: Unresolved Punishments Audit (In Progress)")
             print("")
             print("q: Quit")
@@ -494,7 +623,7 @@ def main_cli(conn):
             elif choice == '9':
                 query_harshness_index(conn)
             elif choice == '10':
-                query_species_behavior(conn)
+                query_soul_score(conn)
             elif choice == '11':
                 query_unresolved_punishments(conn)
             elif choice == 'q':

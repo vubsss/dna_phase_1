@@ -121,7 +121,7 @@ CREATE TABLE PUNISHMENT_ASSIGNED (
     Deed_ID INT NOT NULL,
     Duration INT NOT NULL,
     Status ENUM('Pending', 'In Progress', 'Completed', 'Pardoned') NOT NULL DEFAULT 'Pending',
-    Supervisor INT NOT NULL,
+    Supervisor INT DEFAULT 2,
     PRIMARY KEY (Soul_ID, Punishment_ID, Punishment_Action, Deed_ID),
     CONSTRAINT fk_punishment_assigned_soul FOREIGN KEY (Soul_ID) 
         REFERENCES SOULS(ID) 
@@ -129,7 +129,7 @@ CREATE TABLE PUNISHMENT_ASSIGNED (
         ON UPDATE CASCADE,
     CONSTRAINT fk_punishment_assigned_punishment FOREIGN KEY (Punishment_ID, Punishment_Action) 
         REFERENCES PUNISHMENTS(ID, Action) 
-        ON DELETE RESTRICT 
+        ON DELETE RESTRICT
         ON UPDATE CASCADE,
     CONSTRAINT fk_punishment_assigned_deed FOREIGN KEY (Deed_ID, Soul_ID) 
         REFERENCES DEEDS(Deed_ID, Soul_ID) 
@@ -137,7 +137,7 @@ CREATE TABLE PUNISHMENT_ASSIGNED (
         ON UPDATE CASCADE,
     CONSTRAINT fk_punishment_assigned_supervisor FOREIGN KEY (Supervisor) 
         REFERENCES CARETAKER(ID) 
-        ON DELETE RESTRICT 
+        ON DELETE SET DEFAULT 
         ON UPDATE CASCADE,
     CONSTRAINT chk_duration CHECK (Duration > 0)
 );
