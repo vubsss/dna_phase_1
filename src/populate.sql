@@ -34,12 +34,12 @@ INSERT INTO SOULS (ID, F_Name, M_Name, L_Name, Residence, Date_of_Completion, Ca
 ('N2','Bhav','R.','Patel','Nirvana', NULL, 1),
 
 -- Heaven examples (completed lives)
-('S100','Leela',NULL,'Roy','Heaven','2021-05-12',3),
-('S101','Thomas','E.','Ng','Heaven','2019-11-01',3),
+('S100','Leela',NULL,'Roy','Heaven','1978-11-29',3),
+('S101','Thomas','E.','Ng','Heaven','2026-06-07',3),
 
 -- Hell examples
-('S200','Mord',NULL,'Karn','Hell','2018-03-20',4),
-('S201','Ilya','V.','Drake','Hell','2020-08-15',6),
+('S200','Bridle',NULL,'Gallop','Hell','1975-10-09',4),
+('S201','Ilya',NULL,'Drake','Hell','1980-09-08',6),
 
 -- Earth (currently incarnated)
 ('S300','Priya','S.','Menon','Earth', NULL, 5),
@@ -67,6 +67,8 @@ VALUES
  '2 Rooftop','Kochi','Kerala','India'),
 ('S300','1992-09-25','Slime',NULL,'Blob',6,'1993-11-30',
  'Mud Alley','Kannur','Kerala','India'),
+('S300', '1994-04-14','Priya',NULL,'Menon',2,NULL,
+ '5 Palm St','Trivandrum','Kerala','India'),
 
 -- S301: Cat → Dog → Horse → Human  (steady rise)
 ('S301','1975-03-05','Whiskers',NULL,'Paw',1,'1981-10-10',
@@ -91,7 +93,7 @@ VALUES
  'Old Cat Rd','Kolkata','West Bengal','India'),
 ('S100','1955-09-10','Leela',NULL,'Roy',2,'1975-12-12',
  '7 Park Ave','Chennai','Tamil Nadu','India'),
-('S100','1978-11-30','Leela',NULL,'Roy',2,'2021-05-12',
+('S100','1978-11-30','Anupama',NULL,'N',2,'2021-05-12',
  '7 Park Ave','Mumbai','Maharashtra','India'),
 
 -- S101: Cat → Human (mildly good → Heaven)
@@ -115,7 +117,7 @@ VALUES
  'Backstreet','Nashik','Maharashtra','India'),
 ('S201','1962-04-04','Ilya',NULL,'Drake',6,'1970-06-01',
  'Lab','Nagpur','Maharashtra','India'),
-('S201','1980-09-09','Ilya',NULL,'Drake',6,'1981-03-01',
+('S201','1980-09-09','Silya',NULL,'Drake',6,'1981-03-01',
  'Lab2','Pune','Maharashtra','India'),
 
 -- S303: Cat → Horse → Human (good rise)
