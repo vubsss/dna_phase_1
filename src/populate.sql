@@ -34,13 +34,13 @@ INSERT INTO SOULS (ID, F_Name, M_Name, L_Name, Residence, Date_of_Completion, Ca
 ('N2','Bhav','R.','Patel','Nirvana', NULL, 1),
 
 -- Heaven examples (completed lives)
-('S100','Leela',NULL,'Roy','Heaven','1978-11-29',3),
+('S100','Anupama',NULL,'N','Heaven','2029-11-29',3),
 ('S101','Thomas','E.','Ng','Heaven','2026-06-07',3),
 
 -- Hell examples
-('S200','Bridle',NULL,'Gallop','Hell','1975-10-09',4),
-('S201','Ilya',NULL,'Drake','Hell','1980-09-08',6),
-('S300','Slime',NULL,'Blob','Hell','2001-09-11',2),
+('S201','Silya',NULL,'Drake','Hell','20254-09-08',6),
+('S300','Slime',NULL,'Blob','Hell','2026-09-11',2),
+('S200','Kookoo',NULL,'Caw','Hell','2034-06-19',4),
 
 -- Earth (currently incarnated)
 ('S301','Ravi',NULL,'Kumar','Earth', NULL, 5),
