@@ -25,3 +25,6 @@
       - Retrieves a particular soul's life score and soul score.
 11. **Look at unresolved punishments**
       - Retrieves unresolved punishments and their details.
+
+## VIDEO LINK
+https://drive.google.com/file/d/1ERvKqxfFmdMJepYW22be-3txNmHa7E6A/view?usp=sharing
