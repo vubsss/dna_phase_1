@@ -83,7 +83,7 @@ CREATE TABLE DEEDS (
     Street VARCHAR(255),
     City VARCHAR(100),
     D_State VARCHAR(100),
-    Country VARCHAR(100)
+    Country VARCHAR(100),
     PRIMARY KEY (Deed_ID, Soul_ID),
     CONSTRAINT fk_deeds_soul FOREIGN KEY (Soul_ID) 
         REFERENCES SOULS(ID) 
