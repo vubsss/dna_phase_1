@@ -117,14 +117,16 @@ def insert_deed(conn):
         score = 0
     street = input("Street (optional): ").strip() or None
     city = input("City (optional): ").strip() or None
+    state = input("State (optional): ").strip() or None
+    country = input("Country (optional): ").strip() or None
 
     sql = """
-    INSERT INTO DEEDS (Deed_ID, Soul_ID, Description, Status, Timestamp, Date, Score, Street, City)
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+    INSERT INTO DEEDS (Deed_ID, Soul_ID, Description, Status, Timestamp, Date, Score, Street, City, D_State, Country)
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     """
     try:
         with conn.cursor() as cur:
-            cur.execute(sql, (deed_id, soul_id, description, status, time_str, date_str, score, street, city))
+            cur.execute(sql, (deed_id, soul_id, description, status, time_str, date_str, score, street, city, state, country))
         conn.commit()
         # fetch last insert id for convenience
         with conn.cursor() as cur:
@@ -225,7 +227,7 @@ def update_punishment_status(conn):
     WHERE Soul_ID = %s AND Punishment_ID = %s AND Punishment_Action = %s AND Deed_ID = %s LIMIT 1"""
     try:
         with conn.cursor() as cur:
-            cur.execute(sql1, (soul_id, punishment_id, action, deed_id))
+            cur.execute(sql1, (soul_id, punishment_id_input, action, deed_id_input))
             current_status = cur.fetchone()
             if current_status:
                 print(f"Current Status: {current_status['Status']}")
@@ -280,6 +282,38 @@ def update_residence_of_souls(conn):
         if not result:
             print(f"Soul ID '{soul_id}' not found.")
             return
+        
+        sql = """
+            SELECT
+                COALESCE((
+                    SELECT SUM(D.Score)
+                    FROM DEEDS D
+                    WHERE D.Soul_ID = %s
+                ), 0) AS Soul_Score,
+
+                COALESCE((
+                    SELECT SUM(D2.Score)
+                    FROM DEEDS D2
+                    JOIN LIVES_ON_EARTH L2 ON L2.Soul_ID = D2.Soul_ID
+                    WHERE L2.Soul_ID = %s
+                      AND D2.Date BETWEEN L2.DOB AND COALESCE(L2.DOD, CURDATE())
+                ), 0) AS Life_Score
+            """
+        with conn.cursor() as cur:
+            cur.execute(sql, (soul_id, soul_id))
+            row = cur.fetchone()
+            if not row:
+                print(f"No scores found for soul ID {soul_id}.")
+                return
+            
+        # Safe extraction / formatting
+        soul_score = int(row['Soul_Score'] or 0)
+        life_score = int(row['Life_Score'] or 0)
+
+        print("\n--- Soul Score Summary ---")
+        print(f"{'Soul ID':12s} {'Soul_Score':12s} {'Life_Score':12s}")
+        print("-" * 40)
+        print(f"{soul_id:12s} {soul_score:12d} {life_score:12d}")
             
         current_residence = result['Residence']
         print(f"Current residence: {current_residence}")
@@ -292,6 +326,7 @@ def update_residence_of_souls(conn):
     doc = input("Date of Completion (YYYY-MM-DD) or blank: ").strip() or None
     
     sql = "UPDATE SOULS SET Residence = %s, Date_of_Completion = %s WHERE ID = %s"
+
     try:
         with conn.cursor() as cur:
             cur.execute(sql, (new_residence, doc, soul_id))
@@ -301,6 +336,17 @@ def update_residence_of_souls(conn):
             print(f"Updated residence from '{current_residence}' to '{new_residence}' for soul {soul_id}.")
         else:
             print("No rows updated.")
+        if current_residence == "Earth" and new_residence != "Earth":
+            # Also need to update LIVES_ON_EARTH.DOD
+            dod = input("Date of Death (YYYY-MM-DD) for LIVES_ON_EARTH [default today]: ").strip() or datetime.now().strftime("%Y-%m-%d")
+            try:                
+                with conn.cursor() as cur:
+                    cur.execute("UPDATE LIVES_ON_EARTH SET DOD = %s WHERE Soul_ID = %s AND DOD IS NULL", (dod, soul_id))
+                conn.commit()
+                print(f"Updated LIVES_ON_EARTH DOD for soul {soul_id} to {dod}.")
+            except pymysql.Error as e:
+                conn.rollback()
+                print(f"Error updating LIVES_ON_EARTH DOD: {e}")
     except pymysql.Error as e:
         conn.rollback()
         print(f"Error updating residence: {e}")
@@ -318,10 +364,11 @@ def delete_caretaker(conn):
     except ValueError:
         print("Invalid ID.")
         return
-
+    sql1 = "UPDATE PUNISHMENT_ASSIGNED SET Supervisor = '1' WHERE Supervisor = %s"
     sql = "DELETE FROM CARETAKER WHERE ID = %s"
     try:
         with conn.cursor() as cur:
+            cur.execute(sql1, (cid,))
             cur.execute(sql, (cid,))
         affected = cur.rowcount
         conn.commit()
@@ -331,11 +378,7 @@ def delete_caretaker(conn):
             print("No caretaker deleted (ID not found).")
     except pymysql.Error as e:
         conn.rollback()
-        # Likely cause: RESTRICT due to existing referenced rows (e.g., active punishments supervised)
         print(f"Error deleting caretaker: {e}")
-        print("Likely cause: referential integrity restriction (caretaker is referenced by other rows).")
-        print("Options: reassign or remove dependent rows in PUNISHMENT_ASSIGNED or set Supervisor to NULL where allowed.")
-
 
 # -----------------------
 # Read operations (queries)

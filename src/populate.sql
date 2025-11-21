@@ -106,59 +106,58 @@ VALUES
 ('S304','1961-06-06','Twitch',NULL,'Wing',5,'1969-05-05', 'Cliff','Dallas','Texas','USA'),
 ('S304','1985-07-07','Olda',NULL,'Fe',2,NULL, '4th Avenue','Houston','Texas','USA');
 
+--DEEDS
+INSERT INTO DEEDS (Deed_ID, Soul_ID, Description, Status, Timestamp, Date, Score, Street, City, D_State, Country) VALUES
 
--- 5. DEEDS
-INSERT INTO DEEDS (Deed_ID, Soul_ID, Description, Status, Timestamp, Date, Score, Street, City) VALUES
+-- N1 (Asha): Varanasi -> Uttar Pradesh, India
+(25, 'N1', 'Saved a baby from a cobra', 'Good', '10:00:00', '1828-05-05', 200, 'Temple Steps', 'Varanasi', 'Uttar Pradesh', 'India'),
+(26, 'N1', 'Dedicated life to universal compassion', 'Good', '00:00:00', '1899-12-31', 800, 'Ghat Road', 'Varanasi', 'Uttar Pradesh', 'India'),
 
--- N1 (Asha): Cat -> Human -> Nirvana
-(25, 'N1', 'Saved a baby from a cobra', 'Good', '10:00:00', '1828-05-05', 200, 'Temple Steps', 'Varanasi'),
-(26, 'N1', 'Dedicated life to universal compassion', 'Good', '00:00:00', '1899-12-31', 800, 'Ghat Road', 'Varanasi'),
+-- N2 (Bhav): Surat (Gujarat), Jaipur (Rajasthan), Haridwar (Uttarakhand)
+(27, 'N2', 'Shared meager food with starving kitten', 'Good', '12:00:00', '1809-06-01', 80, 'Old Market', 'Surat', 'Gujarat', 'India'),
+(28, 'N2', 'Died protecting master from bandits', 'Good', '23:00:00', '1822-05-31', 50, 'Farm Road', 'Surat', 'Gujarat', 'India'),
+(29, 'N2', 'Carried heavy loads for building temple', 'Good', '10:00:00', '1840-01-01', 80, 'Royal Stables', 'Jaipur', 'Rajasthan', 'India'),
+(30, 'N2', 'Achieved total detachment from material world', 'Good', '00:00:00', '1904-12-31', 900, 'River Ghat', 'Haridwar', 'Uttarakhand', 'India'),
 
--- N2 (Bhav): Cat -> Dog -> Horse -> Human -> Nirvana
-(27, 'N2', 'Shared meager food with starving kitten', 'Good', '12:00:00', '1809-06-01', 80, 'Old Market', 'Surat'),
-(28, 'N2', 'Died protecting master from bandits', 'Good', '23:00:00', '1822-05-31', 50, 'Farm Road', 'Surat'),
-(29, 'N2', 'Carried heavy loads for building temple', 'Good', '10:00:00', '1840-01-01', 80, 'Royal Stables', 'Jaipur'),
-(30, 'N2', 'Achieved total detachment from material world', 'Good', '00:00:00', '1904-12-31', 900, 'River Ghat', 'Haridwar'),
+-- S300: Thiruvananthapuram & Kannur -> Kerala, India
+(1, 'S300', 'Ate owner''s prize canary', 'Bad', '12:00:00', '1984-05-20', -35, '12 Cat Lane', 'Thiruvananthapuram', 'Kerala', 'India'),
+(2, 'S300', 'Infected a hospital water supply', 'Bad', '08:00:00', '2020-05-05', -170, 'Sewer', 'Kannur', 'Kerala', 'India'),
 
--- S300: Cat -> Pigeon -> Bacteria
-(1, 'S300', 'Ate owner''s prize canary', 'Bad', '12:00:00', '1984-05-20', -35, '12 Cat Lane', 'Thiruvananthapuram'),
-(2, 'S300', 'Infected a hospital water supply', 'Bad', '08:00:00', '2020-05-05', -170, 'Sewer', 'Kannur'),
+-- S301: Bengaluru, Hubli, Udupi -> Karnataka, India
+(3, 'S301', 'Comforted lonely widow', 'Good', '09:00:00', '1980-01-01', 85, '4 Alley', 'Bengaluru', 'Karnataka', 'India'),
+(4, 'S301', 'Bit a postman unprovoked', 'Bad', '10:00:00', '1984-06-01', -20, '7 Kennel Rd', 'Hubli', 'Karnataka', 'India'),
+(5, 'S301', 'Saved puppy from traffic', 'Good', '10:00:00', '1985-06-01', 70, '7 Kennel Rd', 'Hubli', 'Karnataka', 'India'),
+(6, 'S301', 'Served faithfully in police force', 'Good', '16:30:00', '1995-09-01', 80, '9 Meadow', 'Udupi', 'Karnataka', 'India'),
+(7, 'S301', 'Donated to shelter', 'Good', '12:00:00', '2021-02-02', 40, NULL, NULL, NULL, NULL),
 
--- S301: Cat -> Dog -> Horse -> Human
-(3, 'S301', 'Comforted lonely widow', 'Good', '09:00:00', '1980-01-01', 85, '4 Alley', 'Bengaluru'),
-(4, 'S301', 'Bit a postman unprovoked', 'Bad', '10:00:00', '1984-06-01', -20, '7 Kennel Rd', 'Hubli'),
-(5, 'S301', 'Saved puppy from traffic', 'Good', '10:00:00', '1985-06-01', 70, '7 Kennel Rd', 'Hubli'),
-(6, 'S301', 'Served faithfully in police force', 'Good', '16:30:00', '1995-09-01', 80, '9 Meadow', 'Udupi'),
-(7, 'S301', 'Donated to shelter', 'Good', '12:00:00', '2021-02-02', 40, NULL, NULL),
+-- S302: Manila -> Metro Manila, Philippines
+(8, 'S302', 'Killed venomous snake near baby', 'Good', '07:45:00', '1994-11-11', 90, '1 Whisker Ave', 'Manila', 'Metro Manila', 'Philippines'),
+(9, 'S302', 'Rescued family from fire', 'Good', '02:00:00', '2000-05-05', 115, '2 Doggo St', 'Manila', 'Metro Manila', 'Philippines'),
+(10, 'S302', 'Illegally fished endangered species', 'Bad', '05:30:00', '2024-08-18', -40, '10 Ocean View', 'Manila', 'Metro Manila', 'Philippines'),
+(11, 'S302', 'Helped marine rescue', 'Good', '12:00:00', '2024-09-01', 30, '10 Ocean View', 'Manila', 'Metro Manila', 'Philippines'),
 
--- S302: Cat -> Dog -> Human
-(8, 'S302', 'Killed venomous snake near baby', 'Good', '07:45:00', '1994-11-11', 90, '1 Whisker Ave', 'Manila'),
-(9, 'S302', 'Rescued family from fire', 'Good', '02:00:00', '2000-05-05', 115, '2 Doggo St', 'Manila'),
-(10, 'S302', 'Illegally fished endangered species', 'Bad', '05:30:00', '2024-08-18', -40, '10 Ocean View', 'Manila'),
-(11, 'S302', 'Helped marine rescue', 'Good', '12:00:00', '2024-09-01', 30, '10 Ocean View', 'Manila'),
+-- S100: Kolkata (West Bengal), Chennai (Tamil Nadu)
+(12, 'S100', 'Led rescuers to trapped miners', 'Good', '10:00:00', '1925-06-06', 210, 'Old Cat Rd', 'Kolkata', 'West Bengal', 'India'),
+(13, 'S100', 'Lifelong charity', 'Good', '10:00:00', '1975-06-06', 300, '7 Park Ave', 'Chennai', 'Tamil Nadu', 'India'),
 
--- S100: Cat -> Human -> Heaven
-(12, 'S100', 'Led rescuers to trapped miners', 'Good', '10:00:00', '1925-06-06', 210, 'Old Cat Rd', 'Kolkata'),
-(13, 'S100', 'Lifelong charity', 'Good', '10:00:00', '1975-06-06', 300, '7 Park Ave', 'Chennai'),
+-- S200: Varanasi, Agra, Lucknow, Mathura -> Uttar Pradesh, India
+(14, 'S200', 'Guided lost child home', 'Good', '10:00:00', '1925-01-01', 130, 'Ancient Street', 'Varanasi', 'Uttar Pradesh', 'India'),
+(15, 'S200', 'Won races honorably', 'Good', '10:00:00', '1945-01-01', 10, 'Stables', 'Agra', 'Uttar Pradesh', 'India'),
+(16, 'S200', 'Trampled owner in rage', 'Bad', '23:00:00', '1974-12-12', -180, '18 Ash St', 'Lucknow', 'Uttar Pradesh', 'India'),
+(17, 'S200', 'Ruined crop harvest', 'Bad', '14:00:00', '2014-03-20', -170, 'Farm', 'Mathura', 'Uttar Pradesh', 'India'),
 
--- S200: Cat -> Horse -> Horse -> Pigeon -> Hell
-(14, 'S200', 'Guided lost child home', 'Good', '10:00:00', '1925-01-01', 130, 'Ancient Street', 'Varanasi'),
-(15, 'S200', 'Won races honorably', 'Good', '10:00:00', '1945-01-01', 10, 'Stables', 'Agra'),
-(16, 'S200', 'Trampled owner in rage', 'Bad', '23:00:00', '1974-12-12', -180, '18 Ash St', 'Lucknow'),
-(17, 'S200', 'Ruined crop harvest', 'Bad', '14:00:00', '2014-03-20', -170, 'Farm', 'Mathura'),
+-- S201: Nashik, Nagpur, Pune -> Maharashtra, India
+(18, 'S201', 'Savaged a baby in cradle', 'Bad', '02:00:00', '1954-02-01', -210, 'Backstreet', 'Nashik', 'Maharashtra', 'India'),
+(19, 'S201', 'Caused necrotic outbreak', 'Bad', '00:00:00', '1998-02-28', -50, 'Lab', 'Nagpur', 'Maharashtra', 'India'),
+(20, 'S201', 'Infected scientist', 'Bad', '00:00:00', '2014-09-09', -50, 'Lab2', 'Pune', 'Maharashtra', 'India'),
 
--- S201: Cat -> Bacteria -> Bacteria -> Hell
-(18, 'S201', 'Savaged a baby in cradle', 'Bad', '02:00:00', '1954-02-01', -210, 'Backstreet', 'Nashik'),
-(19, 'S201', 'Caused necrotic outbreak', 'Bad', '00:00:00', '1998-02-28', -50, 'Lab', 'Nagpur'),
-(20, 'S201', 'Infected scientist', 'Bad', '00:00:00', '2014-09-09', -50, 'Lab2', 'Pune'),
+-- S304: Albuquerque (NM), Dallas (TX) -> USA
+(21, 'S304', 'Destroyed vase', 'Bad', '09:00:00', '1959-05-05', -35, 'OldRoad', 'Albuquerque', 'New Mexico', 'USA'),
+(22, 'S304', 'Sacrificed life for child', 'Good', '12:12:00', '1968-05-05', 240, 'Cliff', 'Dallas', 'Texas', 'USA'),
 
--- S304: Cat -> Pigeon -> Human
-(21, 'S304', 'Destroyed vase', 'Bad', '09:00:00', '1959-05-05', -35, 'OldRoad', 'Albuquerque'),
-(22, 'S304', 'Sacrificed life for child', 'Good', '12:12:00', '1968-05-05', 240, 'Cliff', 'Dallas'),
-
--- S303
-(23, 'S303', 'Saved farm from rats', 'Good', '1985-01-01', '1985-01-01', 130, 'Alley', 'Chennai'),
-(24, 'S303', 'Worked to death', 'Good', '1995-01-01', '1995-01-01', 90, 'Farm', 'Mahabalipuram');
+-- S303: Chennai & Mahabalipuram -> Tamil Nadu, India
+(23, 'S303', 'Saved farm from rats', 'Good', '16:42:42', '1985-01-01', 130, 'Alley', 'Chennai', 'Tamil Nadu', 'India'),
+(24, 'S303', 'Worked to death', 'Good', '16:42:41', '1995-01-01', 90, 'Farm', 'Mahabalipuram', 'Tamil Nadu', 'India');
 
 -- 6. DEED_ACTION_TYPE
 INSERT INTO DEED_ACTION_TYPE (Deed_ID, Soul_ID, Action_Type) VALUES
