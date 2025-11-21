@@ -7,7 +7,7 @@ Implements:
     * Insert a deed
     * Update soul id
     * Update punishment status
-    * Update residence of souls (Earth -> Hell)
+    * Update residence of souls (Earth -> Hell,Heaven)
     * Delete caretaker (handles referential integrity errors)
 - Read operations (5 queries):
     1) Location Analysis: Negative Deed Percentage (by City)
