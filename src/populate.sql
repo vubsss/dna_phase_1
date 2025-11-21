@@ -106,9 +106,8 @@ VALUES
 ('S304','1961-06-06','Twitch',NULL,'Wing',5,'1969-05-05', 'Cliff','Dallas','Texas','USA'),
 ('S304','1985-07-07','Olda',NULL,'Fe',2,NULL, '4th Avenue','Houston','Texas','USA');
 
---DEEDS
-INSERT INTO DEEDS (Deed_ID, Soul_ID, Description, Status, Timestamp, Date, Score, Street, City, D_State, Country) VALUES
 
+INSERT INTO DEEDS (Deed_ID, Soul_ID, Description, Status, Timestamp, Date, Score, Street, City, D_State, Country) VALUES
 -- N1 (Asha): Varanasi -> Uttar Pradesh, India
 (25, 'N1', 'Saved a baby from a cobra', 'Good', '10:00:00', '1828-05-05', 200, 'Temple Steps', 'Varanasi', 'Uttar Pradesh', 'India'),
 (26, 'N1', 'Dedicated life to universal compassion', 'Good', '00:00:00', '1899-12-31', 800, 'Ghat Road', 'Varanasi', 'Uttar Pradesh', 'India'),
