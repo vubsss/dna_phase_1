@@ -121,7 +121,7 @@ INSERT INTO DEEDS (Deed_ID, Soul_ID, Description, Status, Timestamp, Date, Score
 (30, 'N2', 'Achieved total detachment from material world', 'Good', '00:00:00', '1904-12-31', 900, 'River Ghat', 'Haridwar'),
 
 -- S300: Cat -> Pigeon -> Bacteria
-(1, 'S300', 'Ate owner\'s prize canary', 'Bad', '12:00:00', '1984-05-20', -35, '12 Cat Lane', 'Thiruvananthapuram'),
+(1, 'S300', 'Ate owner''s prize canary', 'Bad', '12:00:00', '1984-05-20', -35, '12 Cat Lane', 'Thiruvananthapuram'),
 (2, 'S300', 'Infected a hospital water supply', 'Bad', '08:00:00', '2020-05-05', -170, 'Sewer', 'Kannur'),
 
 -- S301: Cat -> Dog -> Horse -> Human

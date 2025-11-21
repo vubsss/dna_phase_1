@@ -22,6 +22,6 @@
 9. **Look at Caretaker Fairness**
    - Retrieves caretakers and their "harshness" score based on the duration of punishments assigned to a deed with a certain score.
 10. **Calculate Life Score and Soul Score**
-   - Retrieves a particular soul's life score and soul score.
+      - Retrieves a particular soul's life score and soul score.
 11. **Look at unresolved punishments**
-   - Retrieves unresolved punishments and their details.
+      - Retrieves unresolved punishments and their details.
