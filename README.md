@@ -27,4 +27,4 @@
       - Retrieves unresolved punishments and their details.
 
 ## VIDEO LINK
-https://drive.google.com/file/d/1ERvKqxfFmdMJepYW22be-3txNmHa7E6A/view?usp=sharing
+https://drive.google.com/file/d/12mjFn4LqpJBuCmgW6zG9PJhu9RUzwW6l/view?usp=sharing
